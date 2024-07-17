@@ -1,5 +1,5 @@
 {
-    "name": "cyber-duck/silverstripe-searchly",
+    "name": "lightscale/silverstripe-searchly",
     "description": "Elastic Search integration for SilverStripe",
     "homepage": "https://github.com/cyber-duck/silverstripe-searchly",
     "keywords": [
