@@ -254,7 +254,7 @@ class SearchIndex
     {
         $client = new SearchIndexClient(
             'PUT',
-            sprintf('/%s/_doc/_bulk?pretty', $this->name),
+            sprintf('/%s/_bulk', $this->name),
             (new PrimitiveDataObjectFactory($this, $filters))->getJSON()
         );
 
