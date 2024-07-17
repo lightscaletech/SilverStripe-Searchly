@@ -212,7 +212,7 @@ class SearchIndex
      *
      * @return SearchIndex
      */
-    public function resetIndex(array $mappings = [], array $settings = []): SearchIndex
+    public function resetIndex(?array $mappings = null, ?array $settings = null): SearchIndex
     {
         $this->deleteIndex();
         $this->createIndex($mappings, $settings);
