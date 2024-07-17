@@ -78,8 +78,6 @@ class PrimitiveDataObjectFactory
         foreach ($this->records as $record) {
             $settings = [
                 'index' => [
-                    '_index' => $this->index->getName(),
-                    '_type' => $this->index->getType(),
                     '_id' => $this->index->getRecordID($record),
                 ],
             ];
