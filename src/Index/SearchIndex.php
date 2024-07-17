@@ -196,10 +196,12 @@ class SearchIndex
             ];
         }
 
+        $json = empty($payload) ? '{}' : json_encode($payload);
+
         $client = new SearchIndexClient(
             'PUT',
             sprintf('/%s', $this->name),
-            json_encode($payload)  . "\n"
+            $json  . "\n"
         );
         $client->sendRequest();
     }
