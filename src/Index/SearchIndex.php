@@ -232,9 +232,12 @@ class SearchIndex
                 ''
             );
             $client->sendRequest();
-        } catch (\Exception $e) {
-            //index does not exists, return true anyway
-            return true;
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->getResponse()->getStatusCode() === 404) {
+                return true;
+            }
+
+            throw $e;
         }
 
         return $client->getResponse()->acknowledged;
