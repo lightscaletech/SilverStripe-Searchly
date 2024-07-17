@@ -42,13 +42,6 @@ class SearchIndex
     protected $data;
 
     /**
-     * Search index type.
-     *
-     * @var string
-     */
-    protected $type;
-
-    /**
      * Array of DataObject classes for this index.
      *
      * @var array
@@ -76,10 +69,9 @@ class SearchIndex
      * @param string $type
      * @param array  $classes
      */
-    public function __construct(string $name, string $type, array $classes)
+    public function __construct(string $name, array $classes)
     {
         $this->name = $name;
-        $this->type = $type;
         $this->classes = $classes;
 
         $this->schema = Injector::inst()->get(DataObjectSchema::class);
@@ -93,16 +85,6 @@ class SearchIndex
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * Returns the search index type.
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     /**
@@ -282,7 +264,7 @@ class SearchIndex
 
             $client = new SearchIndexClient(
                 'PUT',
-                sprintf('/%s/%s/%s', $this->name, $this->type, $this->getRecordID($record)),
+                sprintf('/%s/_doc/%s', $this->name, $this->getRecordID($record)),
                 json_encode($data)."\n"
             );
 
@@ -301,7 +283,7 @@ class SearchIndex
             try {
                 $client = new SearchIndexClient(
                     'DELETE',
-                    sprintf('/%s/%s/%s', $this->name, $this->type, $this->getRecordID($record)),
+                    sprintf('/%s/_doc/%s', $this->name, $this->getRecordID($record)),
                     ''
                 );
 
