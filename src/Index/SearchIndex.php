@@ -182,21 +182,24 @@ class SearchIndex
      * @param array $mappings
      * @param array $settings
      */
-    public function createIndex(array $mappings = [], array $settings = [])
+    public function createIndex(?array $mappings = null, ?array $settings = null)
     {
-        $payload = [
-            'settings' => $settings,
-            'mappings' => [
-                $this->type => [
-                    'properties' => $mappings,
-                ],
-            ],
-        ];
+        $payload = [];
+
+        if ($settings !== null) {
+            $payload['settings'] = $settings;
+        }
+
+        if ($mappings !== null) {
+            $payload['mappings'] = [
+                'properties' => $mappings,
+            ];
+        }
 
         $client = new SearchIndexClient(
             'PUT',
             sprintf('/%s', $this->name),
-            json_encode($payload)."\n"
+            json_encode($payload)  . "\n"
         );
         $client->sendRequest();
     }
